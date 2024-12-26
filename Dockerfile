@@ -4,7 +4,7 @@ FROM alpine:latest
 # Set environment variables to avoid prompts
 ENV PATH="/usr/local/istio/bin:${PATH}"
 
-# Install dependencies
+# Install dependencies and tools
 RUN apk add --no-cache \
     bash \
     curl \
@@ -14,7 +14,10 @@ RUN apk add --no-cache \
     git \
     openssl && \
     # Install AWS CLI
-    pip install awscli && \
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install && \
+    rm -rf awscliv2.zip aws && \
     # Install kubectl
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     chmod +x ./kubectl && \
