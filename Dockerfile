@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # Set environment variables to avoid prompts
-ENV PATH="/usr/local/istio/bin:${PATH}"
+ENV PATH="/usr/local/bin:/usr/local/aws-cli/v2/current/bin:/usr/local/istio/bin:$PATH"
 
 # Install dependencies and tools
 RUN apk add --no-cache \
