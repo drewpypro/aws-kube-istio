@@ -2,7 +2,7 @@
 FROM alpine:latest
 
 # Set environment variables
-ENV PATH="/usr/local/bin:/usr/local/aws-cli/v2/current/bin:/usr/local/istio/bin:/usr/local/helm/bin:$PATH"
+ENV PATH="/usr/local/bin:/usr/local/aws-cli/v2/current/bin:/usr/local/istio/bin:$PATH"
 
 # Install dependencies and tools
 RUN apk add --no-cache \
@@ -17,7 +17,7 @@ RUN apk add --no-cache \
     # Install AWS CLI
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
-    ./aws/install && \
+    ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli && \
     rm -rf awscliv2.zip aws && \
     \
     # Install kubectl
@@ -32,7 +32,7 @@ RUN apk add --no-cache \
     rm -rf helm-v3.12.0-linux-amd64.tar.gz linux-amd64 && \
     \
     # Install Istio CLI
-    curl -L https://istio.io/downloadIstio | ISTIO_VERSION=$(curl -sL https://api.github.com/repos/istio/istio/releases/latest | grep -Po '"tag_name": "\K.*?(?=")') sh - && \
+    curl -L https://istio.io/downloadIstio | sh - && \
     mv istio-* /usr/local/istio && \
     \
     # Clean up
@@ -42,7 +42,7 @@ RUN apk add --no-cache \
 RUN helm version && \
     aws --version && \
     kubectl version --client && \
-    istioctl version
+    /usr/local/istio/bin/istioctl version
 
 # Default shell
 CMD ["/bin/bash"]
