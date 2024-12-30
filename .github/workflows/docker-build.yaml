@@ -18,7 +18,7 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           # Build the Docker image
-          docker build -t ghcr.io/${{ github.repository_owner }}/kubectl-aws-istio:${{ github.ref_name }} .
+          docker build -t ghcr.io/${{ github.repository_owner }}/kube-aws-istio:${{ github.ref_name }} .
 
           # Push the Docker image
-          docker push ghcr.io/${{ github.repository_owner }}/kubectl-aws-istio:${{ github.ref_name }}
+          docker push ghcr.io/${{ github.repository_owner }}/kube-aws-istio:${{ github.ref_name }}
