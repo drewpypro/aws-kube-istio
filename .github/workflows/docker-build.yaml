@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*' # Trigger on version tags like v1.0.0
 
 jobs:
   build:
@@ -17,8 +19,25 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          # Build the Docker image
-          docker build -t ghcr.io/${{ github.repository_owner }}/kube-aws-istio:${{ github.ref_name }} .
+          IMAGE=ghcr.io/${{ github.repository_owner }}/kube-aws-istio
 
-          # Push the Docker image
-          docker push ghcr.io/${{ github.repository_owner }}/kube-aws-istio:${{ github.ref_name }}
+          # Use branch name or tag as part of the version
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            VERSION=${{ github.ref_name }}
+          else
+            VERSION=${{ github.ref_name }}
+          fi
+
+          echo "Building Docker image with version tag: $VERSION"
+
+          # Build the Docker image
+          docker build -t $IMAGE:$VERSION .
+
+          # Push the Docker image with the branch or tag name
+          docker push $IMAGE:$VERSION
+
+          # If this is a release tag, also push as "latest"
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            docker tag $IMAGE:$VERSION $IMAGE:latest
+            docker push $IMAGE:latest
+          fi
