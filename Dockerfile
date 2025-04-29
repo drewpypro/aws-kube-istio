@@ -32,6 +32,13 @@ RUN apk add --no-cache \
     curl -L https://istio.io/downloadIstio | sh - && \
     mv istio-* /usr/local/istio && \
     \
+    # Install Terraform CLI
+    curl -L https://releases.hashicorp.com/terraform/1.11.4/terraform_1.11.4_linux_amd64.zip && \
+        unzip terraform_1.11.4_linux_amd64.zi && \
+        mv terraform /usr/local/bin/ && \
+        rm terraform_1.11.4_linux_amd64.zi && \
+        \
+
     # Clean up
     rm -rf /var/cache/apk/* /root/.cache
 
