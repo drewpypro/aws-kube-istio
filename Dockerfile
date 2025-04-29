@@ -34,9 +34,9 @@ RUN apk add --no-cache \
     \
     # Install Terraform CLI
     curl -LO https://releases.hashicorp.com/terraform/1.11.4/terraform_1.11.4_linux_amd64.zip && \
-        unzip terraform_1.11.4_linux_amd64.zi && \
+        unzip terraform_1.11.4_linux_amd64.zip && \
         mv terraform /usr/local/bin/ && \
-        rm terraform_1.11.4_linux_amd64.zi && \
+        rm terraform_1.11.4_linux_amd64.zip && \
         \
 
     # Clean up
