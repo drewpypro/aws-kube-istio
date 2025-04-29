@@ -1,0 +1,1 @@
+# aws-kube-istio-image
