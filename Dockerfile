@@ -52,3 +52,4 @@ RUN helm version && \
 
 # Default shell
 CMD ["/bin/bash"]
+ 
