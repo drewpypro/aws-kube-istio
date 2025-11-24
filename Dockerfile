@@ -49,7 +49,7 @@ RUN apk add --no-cache \
 RUN helm version && \
     aws --version && \
     kubectl version --client && \
-    /usr/local/istio/bin/istioctl version
+    /usr/local/istio/bin/istioctl version --remote=false --short
 
 # Default shell
 CMD ["/bin/bash"]
