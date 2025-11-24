@@ -15,7 +15,6 @@ RUN apk add --no-cache \
     openssh \
     sshpass \
     jq \
-    vault \
     openssl && \
     \
     # Install AWS CLI
