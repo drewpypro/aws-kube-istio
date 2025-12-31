@@ -21,8 +21,8 @@ RUN apk add --no-cache \
     jq \
     openssl && \
     \
-    # Install AWS CLI
-    pip install awscli --break-system-packages && \
+    # Install AWS CLI and requests for python
+    pip install awscli requests --break-system-packages && \
     \
     # Install kubectl
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
